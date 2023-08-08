@@ -3,6 +3,9 @@ package com.gustavolima.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isEmpty
 import com.gustavolima.diceroller.databinding.ActivityMainBinding
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -18,7 +21,17 @@ class MainActivity : AppCompatActivity() {
         startEmptyDice()
 
         binding.roolButton.setOnClickListener {
-            roolDice()
+            if (binding.radioButonOne.isChecked || binding.radioButtonTwo.isChecked) {
+                if (binding.radioButonOne.isChecked) {
+                    roolDiceOne()
+                } else if (binding.radioButtonTwo.isChecked) {
+                    roolDiceTwo()
+                }
+
+            } else {
+                Toast.makeText(this, "Selecione a quantidade de dados.", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
 
@@ -30,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         binding.imageDice2.setBackgroundResource(R.drawable.empty_dice)
     }
 
-    private fun roolDice() {
-        val randomInt1 = Random.nextInt(6)+1
-        val randomInt2 = Random.nextInt(6)+1
+    private fun roolDiceTwo() {
+        val randomInt1 = Random.nextInt(6) + 1
+        val randomInt2 = Random.nextInt(6) + 1
 
         val diceImages = arrayOf(
-        R.drawable.empty_dice,
+            R.drawable.empty_dice,
             R.drawable.dice_1,
             R.drawable.dice_2,
             R.drawable.dice_3,
@@ -49,5 +62,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun roolDiceOne() {
+        val randomInt1 = Random.nextInt(6) + 1
 
+        val diceImages = arrayOf(
+            R.drawable.empty_dice,
+            R.drawable.dice_1,
+            R.drawable.dice_2,
+            R.drawable.dice_3,
+            R.drawable.dice_4,
+            R.drawable.dice_5,
+            R.drawable.dice_6
+        )
+
+        binding.imageDice1.setBackgroundResource(diceImages[randomInt1])
+        binding.imageDice2.setBackgroundResource(diceImages[0])
+
+    }
 }
